@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 // JSON
@@ -14,14 +14,14 @@ import { Auth } from '../../interfaces/auth.interfaces';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm: FormGroup;
+  loginForm: UntypedFormGroup;
   dataLoading: boolean = false;
   unregistered: boolean = false;
   invalid: boolean = false;
   users:Array<Auth> = []
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private authService : AuthService
   ) { }
