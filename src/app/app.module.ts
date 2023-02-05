@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/auth/pages/login/login.component';
 import { RegisterComponent } from './components/auth/pages/register/register.component';
 import { PrincipalComponent } from './components/principal/principal.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import { PrincipalComponent } from './components/principal/principal.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    PrincipalModule
+    PrincipalModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth())
 
   ],
   providers: [],
