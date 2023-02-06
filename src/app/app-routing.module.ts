@@ -12,7 +12,11 @@ const routes: Routes = [
   },
   { path: 'principal', loadChildren: () => import(`./components/principal/principal.module`).then(m => m.PrincipalModule),
   canLoad: [AuthGuard],
-  canActivate: [ AuthGuard ]  }
+  canActivate: [ AuthGuard ]  },
+  {
+    path: '**',
+    redirectTo: 'principal'
+  }
   // { path: 'ships', loadChildren: () => import(`./components/ships/ships.module`).then(m => m.ShipsModule) }
 ];
 

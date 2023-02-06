@@ -1,44 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  Validators,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 
 // JSON
 import usersList from 'src/assets/json/users.json';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-
   registerForm: UntypedFormGroup;
   dataLoading: boolean = false;
 
   constructor(
     private fb: UntypedFormBuilder,
-    private router: Router
-  ) { }
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      first_name: [ '', [Validators.required, Validators.minLength(3)]],
-      last_name: [ '', [Validators.required, Validators.minLength(3)]],
-      username: [ '', [Validators.required, Validators.minLength(3)]],
-      email: [ '', [Validators.required, Validators.minLength(6)]],
-
-    })
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
   }
 
   registerUser() {
-    if (this.registerForm.invalid) { return }
-    // TODO : Falta integrar el servicio para registrar al usuario
-    // JSON simulando usuarios
-    var userLogin = this.registerForm.value;
-    usersList.push(userLogin)
-    console.log('User Register -->', usersList)
-    this.router.navigate(['/principal/ships'])
-
+    if (this.registerForm.valid) {
+      this.authService
+        .register(this.registerForm.value)
+        .then(() => {
+          this.router.navigate(['/auth/login']);
+        })
+        .catch((error) => console.log(error));
+    }
   }
-
 }

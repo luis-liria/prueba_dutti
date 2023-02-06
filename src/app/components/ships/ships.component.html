@@ -1,3 +1,8 @@
 <div class="container">
-        <ships-details [dataList]="dataList"></ships-details>
+  <ships-details *ngIf="!loading" [dataList]="dataList"></ships-details>
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
 </div>
