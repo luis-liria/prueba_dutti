@@ -13,16 +13,16 @@ import {
   providedIn: 'root',
 })
 export class AuthService {
-  users: Array<AuthUser> = usersList;
+  
   constructor(private auth: Auth) {}
 
-  login({ email, password }): any {
+  login({ email, password }: AuthUser) {
     return signInWithEmailAndPassword(this.auth, email, password).then(
       (resp: any) => localStorage.setItem('token', resp.user.accessToken)
     );
   }
 
-  register({ email, password }: any) {
+  register({ email, password }: AuthUser) {
     return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
