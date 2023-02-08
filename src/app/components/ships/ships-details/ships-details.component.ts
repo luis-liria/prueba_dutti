@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducers';
 declare var $: any;
 
 @Component({
@@ -7,7 +9,8 @@ declare var $: any;
   styleUrls: ['./ships-details.component.scss'],
 })
 export class ShipsDetailsComponent implements OnInit {
-  @Input() dataList: any;
+  dataList: any;
+  error: any;
   config: any;
   shipId: string = '';
   imgUrl: string = 'https://starwars-visualguide.com/assets/img/starships';
@@ -27,14 +30,19 @@ export class ShipsDetailsComponent implements OnInit {
   cargo_capacity: string = '';
   passengers: string = '';
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.config = {
-      itemsPerPage: 5,
-      currentPage: 1,
-      totalItems: this.dataList.length,
-    };
+    this.store.select('starschips').subscribe(({ starships }) => {
+      this.dataList = starships;
+      console.log(this.dataList.results);
+
+      this.config = {
+        itemsPerPage: 5,
+        currentPage: 1,
+        totalItems: this.dataList.results.length,
+      };
+    });
   }
 
   getStarshipId(url) {
