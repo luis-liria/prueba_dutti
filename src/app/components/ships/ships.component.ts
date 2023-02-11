@@ -16,16 +16,9 @@ export class ShipsComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    // this.loading = true
-    // this.shipsService.getShips().subscribe((ships) => {
-    //   this.dataList = ships;
-    //   console.log('SHIPS -->', this.dataList.results)
-    //   console.log(ships)
-    //   this.loading = false
-    // })
     this.store.select('starschips').subscribe(({ loading }) => {
       this.loading = loading
-      console.log(loading)
+     
     });
     this.store.dispatch( cargarStarships() );
     

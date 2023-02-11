@@ -1,0 +1,1 @@
+{"ast":null,"code":"import * as reducers from './reducers';\nexport const appReducers = {\n  starschips: reducers.starshipsReducer\n};","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

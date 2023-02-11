@@ -17,7 +17,6 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'principal'
   }
-  // { path: 'ships', loadChildren: () => import(`./components/ships/ships.module`).then(m => m.ShipsModule) }
 ];
 
 @NgModule({

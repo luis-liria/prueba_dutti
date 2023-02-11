@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { StarschipsEffects } from './starships.effects';\nexport const EffectsArray = [StarschipsEffects];","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
