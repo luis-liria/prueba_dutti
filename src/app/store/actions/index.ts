@@ -1,2 +1,3 @@
 export * from './starships.actions';
-export * from './characters.action';
+export * from './characters.actions';
+export * from './starpage.actions';

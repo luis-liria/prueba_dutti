@@ -22,12 +22,27 @@ export class StarschipsEffects {
             mergeMap(
                 () => this.shipsService.getShips()
                     .pipe(
-                        tap(data => console.log(data)),
+                        tap(data => console.log('chips',data)),
                         map( starships => starchipsActions.cargarStarshipsSuccess({ starships: starships }) ),
                         catchError( err => of(starchipsActions.cargarStarshipsError({ payload: err })) )
                     )
             )
         )
     );
+
+    cargarStarchipsPage$ = createEffect(
+        () => this.actions$.pipe(
+            ofType( starchipsActions.cargarStarshipsPage  ),
+            mergeMap(
+                (action) => this.shipsService.getShipsPage(action.page)
+                    .pipe(
+                        tap(data => console.log('page',data)),
+                        map( starships => starchipsActions.cargarStarshipsSuccess({ starships: starships }) ),
+                        catchError( err => of(starchipsActions.cargarStarshipsError({ payload: err })) )
+                    )
+            )
+        )
+    );
+
 
 }

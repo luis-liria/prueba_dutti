@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Chips, config } from 'src/app/interfaces/chips.interfaces';
+import { cargarStarshipsPage } from 'src/app/store/actions/starships.actions';
 import { AppState } from 'src/app/store/app.reducers';
 declare var $: any;
 
@@ -9,69 +11,65 @@ declare var $: any;
   styleUrls: ['./ships-details.component.scss'],
 })
 export class ShipsDetailsComponent implements OnInit {
-  dataList: any;
+  imgUrl: string = 'https://starwars-visualguide.com/assets/img/characters';
+  dataList: Chips;
+  loading: boolean = false;
   error: any;
-  config: any;
+  config: config;
   shipId: string = '';
-  imgUrl: string = 'https://starwars-visualguide.com/assets/img/starships';
-  imgError: string =
-    'https://starwars-visualguide.com/assets/img/big-placeholder.jpg';
-  url: string = 'https://starwars-visualguide.com/assets/img/starships/9.jpg';
-  // Modal
-  titleDetails: string = '';
-  modelDetails: string = '';
-  starship_class: string = '';
-  manufacturer: string = '';
-  cost_in_credits: string = '';
-  max_atmosphering_speed: string = '';
-  hyperdrive_rating: string = '';
-  MGLT: string = '';
-  length: string = '';
-  cargo_capacity: string = '';
-  passengers: string = '';
+  page: number = 1;
+  url: string = '';
+  birthYear: string = '';
+  height: string = '';
+  mass: string = '';
+  gender: string = '';
+  hairColor: string = '';
+  skinColor: string = '';
+  name: string = '';
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.select('starschips').subscribe(({ starships }) => {
+    this.store.select('starschips').subscribe(({ starships, loading }) => {
       this.dataList = starships;
-      console.log(this.dataList.results);
-
+      this.loading = loading;
       this.config = {
-        itemsPerPage: 5,
-        currentPage: 1,
-        totalItems: this.dataList.results.length,
+        itemsPerPage: this.dataList?.results.length,
+        currentPage: this.page,
+        totalItems: this.dataList?.count,
       };
+      console.log('config', this.config);
     });
   }
 
   getStarshipId(url) {
     if (url) {
-      this.shipId = url.slice(-2, -1);
-      const urlImage = `${this.imgUrl}/${this.shipId}.jpg`;
-      console.log('img', urlImage);
+      let urlLength = url.substring(0, url.length - 1);
+      let urlLast = urlLength.lastIndexOf('/');
+      let urlCharacter = urlLength.length - urlLast - 1;
+      let urlId = urlLength.slice(-urlCharacter);
+      const urlImage = `${this.imgUrl}/${urlId}.jpg`;
+
       return urlImage;
     }
     return '';
   }
 
-  pageChanged(event) {
-    this.config.currentPage = event;
-    console.log('get', this.getStarshipId(this.url));
+  pageChanged(page) {
+    this.page = page;
+    this.store.dispatch(cargarStarshipsPage({ page }));
+    this.config.currentPage = this.page;
   }
 
   openDetails(details) {
     $('#exampleModal').modal('show');
-    this.titleDetails = details.name;
-    this.modelDetails = details.model;
-    this.starship_class = details.starship_class;
-    this.manufacturer = details.manufacturer;
-    this.cost_in_credits = details.cost_in_credits;
-    this.max_atmosphering_speed = details.max_atmosphering_speed;
-    this.hyperdrive_rating = details.hyperdrive_rating;
-    this.MGLT = details.MGLT;
-    this.length = details.length;
-    this.cargo_capacity = details.cargo_capacity;
-    this.passengers = details.passengers;
+    this.birthYear = details.birth_year;
+    this.height = details.height;
+    this.mass = details.mass;
+    this.gender = details.gender;
+    this.hairColor = details.hair_color;
+    this.skinColor = details.skin_color;
+    this.name = details.name;
+    this.url = details.url;
   }
 }

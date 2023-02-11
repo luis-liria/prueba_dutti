@@ -3,6 +3,7 @@ import {
   cargarStarships,
   cargarStarshipsSuccess,
   cargarStarshipsError,
+  cargarStarshipsPage,
 } from '../actions';
 
 export interface StarshipsState {
@@ -21,6 +22,14 @@ const _starshipsReducer = createReducer(
   StarshipsInitialState,
 
   on(cargarStarships, (state) => ({ ...state, loading: true })),
+  
+  on( cargarStarshipsPage, (state, { page }) => ({ 
+    ...state, 
+    loading: true,
+    page: page
+})),
+
+
 
   on(cargarStarshipsSuccess, (state, { starships }) => ({
     ...state,

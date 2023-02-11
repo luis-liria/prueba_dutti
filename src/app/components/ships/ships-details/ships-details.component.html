@@ -1,26 +1,40 @@
-<pagination-controls
-  (pageChange)="pageChanged($event)"
-  class="text-center"
-></pagination-controls>
-<div *ngIf="dataList">
-  <div
-    class="ship"
-    *ngFor="let ships of dataList.results | paginate : config; let i = index"
-    (click)="openDetails(ships)"
-  >
-    <div class="panel-heading">
-      <h3 class="panel-title">{{ ships?.name }}</h3>
-    </div>
-    <div class="panel-body text-center color">
-      <img
-        [src]="getStarshipId(ships?.url)"
-        onError="this.src='assets/img/errorImg_x3.svg'"
-        class="imgSize"
-      />
-    </div>
+<div *ngIf="loading" class="text-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only"></span>
   </div>
 </div>
 
+<pagination-controls
+  *ngIf="!loading"
+  (pageChange)="pageChanged($event)"
+  class="text-center"
+></pagination-controls>
+
+<!-- Card -->
+
+<div *ngIf="!loading" class="container">
+  <div class="row" *ngIf="dataList">
+    <div
+      class="col-xl-4 col-sm-6 col-xs-12"
+      *ngFor="let ships of dataList.results | paginate : config; let i = index"
+      (click)="openDetails(ships)"
+    >
+      <div class="row p-3">
+        <div class="card my-3">
+          <img
+            class="card-img-top"
+            [src]="getStarshipId(ships?.url)"
+            onError="this.src='assets/img/errorImg_x3.svg'"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <p class="card-text">{{ ships?.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Modal Details-->
 <div
   class="modal fade"
@@ -33,7 +47,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ titleDetails }}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{ name }}</h5>
         <button
           type="button"
           class="close"
@@ -43,26 +57,26 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <span><b>Model</b> : {{ modelDetails }}</span
+      <div class="modal-body text-center">
+        <img
+          class="card-img-top"
+          [src]="getStarshipId(url)"
+          onError="this.src='assets/img/errorImg_x3.svg'"
+          alt="Card image cap"
+          style="max-width: 45%"
+        /><br /><br />
+        <span><b>Birth Year</b> : {{ birthYear }}</span
         ><br />
-        <span><b>Manufacturer</b> : {{ manufacturer }}</span
+        <span><b>Height</b> : {{ height }}</span
         ><br />
-        <span><b>class</b> : {{ starship_class }}</span
+        <span><b>Mass </b> : {{ mass }}</span
         ><br />
-        <span><b>Cost </b> : {{ cost_in_credits }}</span
+        <span><b>Gender</b> : {{ gender }}</span
         ><br />
-        <span><b>Speed</b> : {{ max_atmosphering_speed }}</span
+        <span><b>Hair Color</b>: {{ hairColor }}</span
         ><br />
-        <span><b>Hyperdrive Rating</b>: {{ hyperdrive_rating }}</span
+        <span><b>Skin Color </b>: {{ skinColor }}</span
         ><br />
-        <span><b>MGLT </b>: {{ MGLT }}</span
-        ><br />
-        <span><b>Length</b> : {{ length }}</span
-        ><br />
-        <span><b>Cargo Capacity</b> : {{ cargo_capacity }}</span
-        ><br />
-        <span><b>Passengers</b> : {{ passengers }}</span>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">

@@ -35,4 +35,19 @@ Navigate to `http://localhost:4200/`.
 
 # Notas del desarrollador:
 
+1. Actualización del proyecto a la ultima versíon de Angular y librerias.
+2. Reestructuración de carpetas.
+3. Creación del modulo auth para aplicar seguridad a las rutas.
+4. Implementación del AuthGuard para aplicar protección a las rutas.
+5. Instalación de Firebase como servidor para el login y registro del proyecto.
+6. Añadido el boton de logout para probar la autentificación.
+7. Instalación de la libreria Ngrx para manejar el estado del proyecto.
+8. Creación de los servicios para consumir las apis.
+9. He cambiado las naves por los personajes ya que las naves la mayoria de imagenes daban error.
+10. Implementación del paginado.
+11. Impementación del spinner.
+12. Añadido foto y descripción del personaje al modal.
+13. Implementación de interfaces
+
+
 

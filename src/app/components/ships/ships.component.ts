@@ -23,6 +23,10 @@ export class ShipsComponent implements OnInit {
     //   console.log(ships)
     //   this.loading = false
     // })
+    this.store.select('starschips').subscribe(({ loading }) => {
+      this.loading = loading
+      console.log(loading)
+    });
     this.store.dispatch( cargarStarships() );
     
   }
