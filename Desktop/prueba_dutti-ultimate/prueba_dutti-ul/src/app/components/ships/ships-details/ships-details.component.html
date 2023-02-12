@@ -1,0 +1,88 @@
+<div *ngIf="loading" class="text-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only"></span>
+  </div>
+</div>
+
+<pagination-controls
+  *ngIf="!loading"
+  (pageChange)="pageChanged($event)"
+  class="text-center"
+></pagination-controls>
+
+<!-- Card -->
+
+<div *ngIf="!loading" class="container">
+  <div class="row" *ngIf="dataList">
+    <div
+      class="col-xl-4 col-sm-6 col-xs-12"
+      *ngFor="let ships of dataList.results | paginate : config; let i = index"
+      (click)="openDetails(ships)"
+    >
+      <div class="row p-3">
+        <div class="card my-3">
+          <img
+            class="card-img-top"
+            [src]="getStarshipId(ships?.url)"
+            onError="this.src='assets/img/errorImg_x3.svg'"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <p class="card-text">{{ ships?.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Details-->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ name }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <img
+          class="card-img-top"
+          [src]="getStarshipId(url)"
+          onError="this.src='assets/img/errorImg_x3.svg'"
+          alt="Card image cap"
+          style="max-width: 45%"
+        /><br /><br />
+        <span><b>Birth Year</b> : {{ birthYear }}</span
+        ><br />
+        <span><b>Height</b> : {{ height }}</span
+        ><br />
+        <span><b>Mass </b> : {{ mass }}</span
+        ><br />
+        <span><b>Gender</b> : {{ gender }}</span
+        ><br />
+        <span><b>Hair Color</b>: {{ hairColor }}</span
+        ><br />
+        <span><b>Skin Color </b>: {{ skinColor }}</span
+        ><br />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

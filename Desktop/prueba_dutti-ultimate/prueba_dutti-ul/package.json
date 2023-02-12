@@ -1,0 +1,99 @@
+{
+  "name": "massimo-dutti",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve ",
+    "build": "ng build",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^15.1.3",
+    "@angular/common": "^15.1.3",
+    "@angular/compiler": "^15.1.3",
+    "@angular/core": "^15.1.3",
+    "@angular/fire": "^7.4.1",
+    "@angular/forms": "^15.1.3",
+    "@angular/platform-browser": "^15.1.3",
+    "@angular/platform-browser-dynamic": "^15.1.3",
+    "@angular/router": "^15.1.3",
+    "@ngrx/effects": "^15.2.1",
+    "@ngrx/store": "^15.2.1",
+    "@ngrx/store-devtools": "^15.2.1",
+    "@popperjs/core": "^2.11.6",
+    "bootstrap": "^4.6.2",
+    "jest-marbles": "^3.0.3",
+    "jquery": "^3.6.3",
+    "karma": "^6.4.1",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-coverage": "^2.2.0",
+    "karma-jasmine-html-reporter": "^2.0.0",
+    "ngx-pagination": "^5.1.1",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.5.0",
+    "zone.js": "~0.11.8"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^15.1.4",
+    "@angular/cli": "^15.1.4",
+    "@angular/compiler-cli": "^15.1.3",
+    "@angular/language-service": "^15.1.3",
+    "@types/jasmine": "^3.6.11",
+    "@types/jasminewd2": "^2.0.10",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^12.20.55",
+    "codelyzer": "^6.0.2",
+    "jest": "^26.6.3",
+    "jest-preset-angular": "^8.4.0",
+    "protractor": "~7.0.0",
+    "ts-node": "~8.3.0",
+    "tslint": "^6.1.3",
+    "typescript": "^4.9.5"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "./src/app/**/*.ts"
+    ],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "clover",
+      "html"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "lines": 12,
+        "statements": 12
+      }
+    },
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupJest.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/",
+      "<rootDir>/src/app/checkout/",
+      "<rootDir>/src/test.ts"
+    ],
+    "moduleNameMapper": {
+      "^@environments(.*)": "<rootDir>/src/environments$1",
+      "^@env/environment": "<rootDir>/src/environments/environment",
+      "^@api(.*)": "<rootDir>/src/app/idt-ecommerce-api$1",
+      "^idt-ecommerce-api(.*)": "<rootDir>/src/app/idt-ecommerce-api$1",
+      "^common(.*)": "<rootDir>/src/app/common$1"
+    },
+    "globals": {
+      "inditex": true,
+      "ts-jest": {
+        "isolatedModules": true
+      }
+    }
+  }
+}
